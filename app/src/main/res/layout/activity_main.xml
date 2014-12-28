@@ -1,0 +1,15 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:orientation="vertical"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent">
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/list"
+        android:layout_weight="1"
+        android:dividerHeight="2sp"
+        android:drawSelectorOnTop="true"
+        android:divider="#ffb8b8b8"
+        android:background="#ff655799" />
+
+</LinearLayout>
