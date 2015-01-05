@@ -125,6 +125,7 @@ public class MainActivity extends ActionBarActivity {
         builder.setTitle(R.string.edit_a_task_text);
         final EditText inputField = new EditText(this);
         inputField.setText(originaltask);
+        inputField.setSelection(originaltask.length());
         builder.setView(inputField);
         builder.setPositiveButton(R.string.edit_button_text, new DialogInterface.OnClickListener() {
             @Override
