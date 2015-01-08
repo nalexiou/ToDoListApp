@@ -17,6 +17,7 @@
         android:layout_toLeftOf="@+id/doneButton"
         android:gravity="center_vertical"
         android:onClick="onTextViewClick"
+        android:clickable="true"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="false"
         android:layout_alignParentEnd="false" />
