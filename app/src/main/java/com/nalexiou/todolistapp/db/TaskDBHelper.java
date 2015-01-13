@@ -3,7 +3,6 @@ package com.nalexiou.todolistapp.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 /**
  * Created by Nikos on 12/26/14.
@@ -23,8 +22,6 @@ public class TaskDBHelper extends SQLiteOpenHelper {
                                 "UNIQUE (%s))", TaskContract.TABLE,
                                 TaskContract.Columns.TASK,
                                 TaskContract.Columns.TASK);
-
-        Log.d("TaskDBHelper", "Query to form table: " + sqlQuery);
         sqlDB.execSQL(sqlQuery);
     }
 

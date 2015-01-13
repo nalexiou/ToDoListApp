@@ -7,10 +7,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -74,16 +74,14 @@ public class MainActivity extends ActionBarActivity {
                 builder.setMessage(R.string.task__question_text);
                 final EditText inputField = new EditText(this);
                 builder.setView(inputField);
+                inputField.requestFocus();
                 builder.setPositiveButton(R.string.add_button_text, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String task = inputField.getText().toString();
-                        Log.d("MainActivity",task);
-
                         TaskDBHelper helper = new TaskDBHelper(MainActivity.this);
                         SQLiteDatabase db = helper.getWritableDatabase();
                         ContentValues values = new ContentValues();
-
                         values.clear();
                         values.put(TaskContract.Columns.TASK,task);
 
@@ -93,8 +91,10 @@ public class MainActivity extends ActionBarActivity {
                     }
                 });
                 builder.setNegativeButton(R.string.cancel_button_text,null);
-
-                builder.create().show();
+                AlertDialog dlg = builder.create();
+                dlg.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE|WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+                dlg.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+                dlg.show();
                 return true;
 
             default:
@@ -126,12 +126,10 @@ public class MainActivity extends ActionBarActivity {
         final EditText inputField = new EditText(this);
         inputField.setText(originaltask);
         inputField.setSelection(originaltask.length());
-        builder.setView(inputField);
         builder.setPositiveButton(R.string.edit_button_text, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 String task = inputField.getText().toString();
-                Log.d("MainActivity",task);
                 String sql = String.format("UPDATE %s SET %s = '%s' WHERE %s = '%s'",
                         TaskContract.TABLE,
                         TaskContract.Columns.TASK,
@@ -143,8 +141,12 @@ public class MainActivity extends ActionBarActivity {
             }
         });
         builder.setNegativeButton(R.string.cancel_button_text,null);
-        builder.create().show();
-        //return true;
+        builder.setView(inputField);
+        inputField.requestFocus();
+        AlertDialog dlg = builder.create();
+        dlg.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE|WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        dlg.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        dlg.show();
 
     }
 }
